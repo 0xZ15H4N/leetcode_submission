@@ -3,9 +3,7 @@ private:
     void solve(set<vector<int>>& ans, vector<int> output, vector<int> nums, int size,
                int index) {
         if (index >= size) {
-            if (ans.find(output) == ans.end()) {
-                ans.insert(output);
-            }
+            ans.insert(output);
             return;
         }
         // exclude
