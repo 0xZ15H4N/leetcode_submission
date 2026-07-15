@@ -11,6 +11,7 @@ public:
             for(int j = 0; j < cols; j++){
                 if(grid[i][j] == 2){
                     q.push(make_pair(make_pair(i,j),0));
+                    vis[i][j] = 1;
                 }
             }
         }
@@ -23,7 +24,6 @@ public:
             int col = q.front().first.second;
             int tm = q.front().second;
             timer = max(timer,tm);
-            vis[row][col] = 1;
             q.pop();
             for(int i= 0; i < 4 ; i++){
                 int nRow = row + dirRow[i];
