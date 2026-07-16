@@ -16,9 +16,7 @@ public:
                 }
             }
         }
-        int delRow[] = {-1,0,1,0};
-        int delCol[] = {0,-1,0,1};
-
+        int DIR[] = {0, 1, 0, -1, 0};
         while(!q.empty()){
             int row = q.front().first.first;
             int col = q.front().first.second;
@@ -27,8 +25,8 @@ public:
             dist[row][col] = steps;
             q.pop();
             for(int i = 0; i < 4; i++){
-                int nRow  = row + delRow[i];
-                int nCol  = col + delCol[i];
+                int nRow  = row + DIR[i];
+                int nCol  = col + DIR[i+1];
                 if(nRow >=0 && nRow < rows && nCol >=0 && nCol < cols && mat[nRow][nCol] == -1){
                     q.push({{nRow,nCol},steps+1});
                     mat[nRow][nCol] = 0;
