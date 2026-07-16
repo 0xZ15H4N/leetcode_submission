@@ -4,13 +4,15 @@ public:
         int rows = mat.size();
         int cols = mat[0].size();
         vector<vector<int>> dist(rows,vector<int>(cols,0));
-        vector<vector<int>> vis(rows,vector<int>(cols,0));
+
         queue<pair<pair<int,int>,int>>q;
         for(int i = 0; i < rows; i++){
             for(int j = 0; j < cols; j++){
                 if(mat[i][j] == 0){
                     q.push({{i,j},0});
-                    vis[i][j] = 1;
+                   
+                }else{
+                    mat[i][j] = -1;
                 }
             }
         }
@@ -27,9 +29,9 @@ public:
             for(int i = 0; i < 4; i++){
                 int nRow  = row + delRow[i];
                 int nCol  = col + delCol[i];
-                if(nRow >=0 && nRow < rows && nCol >=0 && nCol < cols && vis[nRow][nCol] == 0){
+                if(nRow >=0 && nRow < rows && nCol >=0 && nCol < cols && mat[nRow][nCol] == -1){
                     q.push({{nRow,nCol},steps+1});
-                    vis[nRow][nCol] = 1;
+                    mat[nRow][nCol] = 0;
                 }
 
             }
