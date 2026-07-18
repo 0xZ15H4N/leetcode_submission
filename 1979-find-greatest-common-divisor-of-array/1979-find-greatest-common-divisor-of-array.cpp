@@ -8,8 +8,6 @@ private:
     }
 public:
     int findGCD(vector<int>& nums) {
-        int min_ = *min_element(nums.begin(),nums.end());  
-        int max_ = *max_element(nums.begin(),nums.end());  
-        return find_gcd(min_,max_);
+        return find_gcd( *min_element(nums.begin(),nums.end()),*max_element(nums.begin(),nums.end()));
     }
 };
