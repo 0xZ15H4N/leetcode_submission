@@ -15,8 +15,8 @@ public:
         // why not taking pq cause it will already be in ascending
         // order cause we are moving 1 unit in all direction
         vector<vector<int>>dist(N,vector<int>(M,INT_MAX));
-        dist[0][0] = 0;
-        q.push({0, {0, 0}});
+        dist[0][0] = 1; // its not talking about minimum path , its taking about minimum cell visited so we take 1 not 0;
+        q.push({1, {0, 0}});
         while (!q.empty()) {
             auto it = q.front();
             q.pop();
@@ -30,7 +30,7 @@ public:
                 if(newr >=0 && newr < N && newc >= 0 && newc < M && grid[newr][newc] == 0 && dis + 1 < dist[newr][newc]){
                     dist[newr][newc] = dis+1;
                     if(newr == N-1 && newc == M-1){
-                        return dis+2;
+                        return dis+1;
                     }
                     q.push({dis+1,{newr,newc}});
                 }
