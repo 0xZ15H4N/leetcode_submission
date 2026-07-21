@@ -5,50 +5,43 @@ using namespace std;
 class Solution {
 public:
     int orangesRotting(vector<vector<int>>& grid) {
-        int rows = grid.size();
-        int cols = grid[0].size();
-        // considering queue with pair which contain a pair and timer
-        queue<pair<pair<int,int>,int>>q;  
-
-        // pushing all the rotten oranges in the queue
-        int count = 0;
-        for(int i = 0 ; i < rows;i ++){
-            for(int j = 0; j < cols; j++){
+        int row = grid.size();
+        int col = grid[0].size();
+        queue<pair<pair<int,int>,int>>q;
+        int cnt = 0;
+        for(int i = 0 ;i< row;i++){
+            for(int j= 0; j<col;j++){
                 if(grid[i][j] == 2){
-                    q.push(make_pair(make_pair(i,j),0));
+                    q.push({{i,j},0});
                 }
                 if(grid[i][j] == 1){
-                    count++;
+                    // fresh oranges
+                    cnt++;
                 }
             }
         }
-        // only tracks the max Time
         int timer = 0;
         int cntFresh = 0;
-        vector<int> dirRow = {-1,0,1,0};
-        vector<int> dirCol = {0,-1,0,1};
         while(!q.empty()){
-            int row = q.front().first.first;
-            int col = q.front().first.second;
-            int tm = q.front().second;
-            timer = max(timer,tm);
+            int r = q.front().first.first;
+            int c = q.front().first.second;
+            int step = q.front().second;
             q.pop();
-            for(int i= 0; i < 4 ; i++){
-                int nRow = row + dirRow[i];
-                int nCol = col + dirCol[i];
-                if(nRow >= 0 && nRow < rows && nCol >=0 && nCol < cols &&grid[nRow][nCol] == 1){
-                    grid[nRow][nCol] = 2;
-                    q.push(make_pair(make_pair(nRow,nCol),tm+1));
+            timer = max(timer,step);
+            int dir[] = {-1,0,1,0,-1};
+            for(int i=1; i <= 4;i++){
+                int nrow = r + dir[i-1];
+                int ncol = c + dir[i];
+                if(nrow >= 0 && nrow < row && ncol >=0 && ncol < col && grid[nrow][ncol] == 1){
+                    q.push({{nrow,ncol},step+1});
+                    grid[nrow][ncol] = 2;
                     cntFresh++;
                 }
             }
-            
         }
-        if(count != cntFresh){
+        if(cnt != cntFresh){
             return -1;
         }
-        
         return timer;
-
-    }
+    }   
 };
