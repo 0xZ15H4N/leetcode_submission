@@ -1,29 +1,31 @@
 class Solution {
 private:
-    void dfs(vector<vector<int>>&adjLs,vector<int>&vis,int node){
-        vis[node] = 1;
-        for(auto it: adjLs[node]){
-            if(!vis[it]){
-                dfs(adjLs,vis,it);
+    void dfs(vector<int>adjLs[],vector<int>&vis,int node){
+       vis[node] = 1;
+       for(auto adjNode : adjLs[node]){
+            if(!vis[adjNode]){
+                dfs(adjLs,vis,adjNode);
             }
-        }
+       }
     }
 public:
     int findCircleNum(vector<vector<int>>& isConnected) {
-        int n = isConnected[0].size();
-        // convert adj Matrix -> adj List
-        vector<vector<int>> adjLs(n);
-        for(int i = 0; i < n; i++){
-            for(int j = 0; j < n ;j++){
-                if(i!=j && isConnected[i][j] ==1){
+        int count = 0;
+        int row = isConnected.size();
+        int col = isConnected[0].size();
+        vector<int>adjLs[row];
+        vector<int>vis(row,0);
+
+        for(int i = 0; i<row;i++){
+            for(int j= 0; j <col;j++){
+                if(i != j && isConnected[i][j]){
                     adjLs[i].push_back(j);
                     adjLs[j].push_back(i);
                 }
             }
         }
-        int count = 0;
-        vector<int> vis(n,0);
-        for(int i = 0 ; i < n; i++){
+
+        for(int i =0 ; i< row; i++){
             if(!vis[i]){
                 count++;
                 dfs(adjLs,vis,i);
