@@ -1,37 +1,35 @@
 class Solution {
 private:
-    bool dfs(int Node, vector<vector<int>>& graph, vector<int>& vis,
-             vector<int>& pathVis, vector<int>& check) {
-        vis[Node] = 1;
-        pathVis[Node] = 1;
-        for (auto i : graph[Node]) {
-            if (!vis[i]) {
-                if (dfs(i, graph, vis, pathVis, check) == true) {
+    bool dfs(int start,vector<vector<int>>& graph,vector<int>&vis,vector<int>&pathVis,vector<int>&check_arr){
+        vis[start] = 1;
+        pathVis[start] = 1;
+        for(auto i : graph[start]){
+            if(!vis[i]){
+                if(dfs(i,graph,vis,pathVis,check_arr) == true){
                     return true;
                 }
-            } else if (pathVis[i]) {
+            }else if(pathVis[i]){
                 return true;
             }
         }
-        check[Node] = 1;
-        pathVis[Node] = 0;
+        check_arr[start]=1;
+        pathVis[start] = 0;
         return false;
     }
-
 public:
     vector<int> eventualSafeNodes(vector<vector<int>>& graph) {
-        int Nodes = graph.size();
-        vector<int> vis(Nodes, 0);
-        vector<int> pathVis(Nodes, 0);
-        vector<int> check(Nodes, 0);
-        vector<int> ans;
-        for (int i = 0; i < Nodes; i++) {
-            if (!vis[i]) {
-                dfs(i, graph, vis, pathVis, check);
+        int n = graph.size();
+        vector<int>vis(n,0);
+        vector<int>pathVis(n,0);
+        vector<int>check_arr(n,0);
+        vector<int>ans;
+        for(int i = 0 ; i < n;i++){
+            if(!vis[i]){
+                dfs(i,graph,vis,pathVis,check_arr);
             }
         }
-        for (int i = 0; i < Nodes; i++) {
-            if (check[i] == 1) {
+        for(int i = 0; i < n;i++){
+            if(check_arr[i]){
                 ans.push_back(i);
             }
         }
