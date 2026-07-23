@@ -30,7 +30,7 @@ public:
                 if(newr >=0 && newr < N && newc >= 0 && newc < M && grid[newr][newc] == 0 && dis + 1 < dist[newr][newc]){
                     dist[newr][newc] = dis+1;
                     if(newr == N-1 && newc == M-1){
-                        return dis+1;
+                        return dist[newr][newc];
                     }
                     q.push({dis+1,{newr,newc}});
                 }
