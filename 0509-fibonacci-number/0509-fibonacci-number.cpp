@@ -1,17 +1,22 @@
 class Solution {
-vector<int>arr;
 public:
-    int solve(int n ){
-        if(n <= 1){
-            return n;
-        }
-        if(arr[n] != -1){
-            return arr[n];
-        }
-        return arr[n] = solve(n-1) + solve(n-2);
-    }
+
     int fib(int n) {
-        arr.resize(n+1,-1);
-        return solve(n);
+
+        if (n <= 1)
+            return n;
+
+        int fib0 = 0;
+        int fib1 = 1;
+
+        for (int i = 2; i <= n; i++) {
+
+            int sum = fib0 + fib1;
+
+            fib0 = fib1;
+            fib1 = sum;
+        }
+
+        return fib1;
     }
 };
